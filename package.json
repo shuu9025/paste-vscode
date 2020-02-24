@@ -1,0 +1,106 @@
+{
+	"name": "paste",
+	"displayName": "paste",
+	"description": "paste.mcua.net paste extention",
+	"version": "0.0.2",
+	"engines": {
+		"vscode": "^1.42.0"
+	},
+	"publisher": "shuu9025",
+	"categories": [
+		"Other"
+	],
+	"activationEvents": [
+		"onCommand:paste.upload",
+		"onCommand:paste.import"
+	],
+	"main": "./code.js",
+	"contributes": {
+		"commands": [
+			{
+				"command": "paste.upload",
+				"title": "Upload Paste"
+			},
+			{
+				"command": "paste.import",
+				"title": "Import Paste"
+			},
+			{
+				"command": "paste.edit",
+				"title": "Override Paste"
+			}
+		],
+		"keybindings": [
+			{
+				"command": "paste.upload",
+				"key": "ctrl+shift+q p",
+				"mac": "cmd+shift+q p"
+			},
+			{
+				"command": "paste.import",
+				"key": "ctrl+shift+q i",
+				"mac": "cmd+shift+q i"
+			},
+			{
+				"command": "paste.edit",
+				"key": "ctrl+shift+q e",
+				"mac": "cmd+shift+q e"
+			}
+		],
+		"configuration": [
+			{
+				"title": "Paste Configuration",
+				"properties": {
+					"paste.api.key": {
+						"type": "string",
+						"default": "",
+						"description": "Your API Key. paste.mcua.net > Login with Discord > (Your discord name) > API Key",
+						"scope": "window"
+					},
+					"paste.api.expire": {
+						"type": "string",
+						"enum": [
+							"Never",
+							"10 minutes",
+							"1 hour",
+							"1 day",
+							"1 week",
+							"1 month",
+							"6 months",
+							"1 year",
+							"Check every time"
+						],
+						"default": "10 minutes",
+						"description": "Paste expire.",
+						"scope": "window"
+					},
+					"paste.defaultlanguage": {
+						"type": "string",
+						"default": "plaintext",
+						"description": "Default imported paste's highlight language. Ex: skript, csharp (Not C#)",
+						"scope": "window"
+					}
+				}
+			}
+		]
+	},
+	"scripts": {
+		"lint": "eslint .",
+		"pretest": "npm run lint",
+		"test": "node ./test/runTest.js"
+	},
+	"devDependencies": {
+		"@types/glob": "^7.1.1",
+		"@types/mocha": "^7.0.1",
+		"@types/node": "^12.11.7",
+		"@types/vscode": "^1.42.0",
+		"eslint": "^6.8.0",
+		"glob": "^7.1.6",
+		"mocha": "^7.0.1",
+		"typescript": "^3.7.5",
+		"vscode-test": "^1.3.0"
+	},
+	"dependencies": {
+		"xmlhttprequest": "^1.8.0"
+	}
+}
