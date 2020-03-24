@@ -86,7 +86,7 @@ function activate(context) {
 					var READYSTATE_COMPLETED = 4;
 					var HTTP_STATUS_OK = 200;
 					if (this.readyState == READYSTATE_COMPLETED &&
-						this.status == 400) {
+						this.status != 200) {
 						vscode.window.showErrorMessage("Invalid response from API.\nPlease check API Key in settings.\nResponse message: " + this.responseText);
 						resolve();
 					}
@@ -153,6 +153,11 @@ function activate(context) {
 										var READYSTATE_COMPLETED = 4;
 										var HTTP_STATUS_OK = 200;
 
+										if (this.readyState == READYSTATE_COMPLETED &&
+											this.status == 403) {
+											vscode.window.showErrorMessage("Access denied. Is this paste encrypted?");
+											resolve();
+										}
 										if (this.readyState == READYSTATE_COMPLETED
 											&& this.status == HTTP_STATUS_OK) {
 											openInUntitled(this.responseText, language);
@@ -191,6 +196,11 @@ function activate(context) {
 								var READYSTATE_COMPLETED = 4;
 								var HTTP_STATUS_OK = 200;
 
+								if (this.readyState == READYSTATE_COMPLETED &&
+									this.status == 403) {
+									vscode.window.showErrorMessage("Access denied. Is this paste encrypted?");
+									resolve();
+								}
 								if (this.readyState == READYSTATE_COMPLETED
 									&& this.status == HTTP_STATUS_OK) {
 									openInUntitled(this.responseText);
